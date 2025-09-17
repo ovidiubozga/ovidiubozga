@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geometric Human Face</title>
+<style>
+:root {
+  --skin-base: #efd4b6;
+  --skin-shadow: #dfbc9a;
+  --hair: #2f2118;
+  --bg: #0c3f53;
+  --sclera: #f8f4ef;
+  --iris: #37261b;
+  --lip: #9c6f60;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.canvas {
+  width: min(64vmin, 420px);
+  aspect-ratio: 3 / 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.portrait {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.neck {
+  position: absolute;
+  bottom: 10%;
+  left: 40%;
+  right: 40%;
+  height: 16%;
+  background: var(--skin-shadow);
+  border-radius: 18% 18% 26% 26% / 30% 30% 60% 60%;
+  z-index: 1;
+}
+.head {
+  position: absolute;
+  inset: 8% 18% 14% 18%;
+  background: linear-gradient(90deg, var(--skin-base) 48%, var(--skin-shadow) 52%);
+  border-radius: 48% 48% 42% 42% / 56% 56% 44% 44%;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28);
+  z-index: 2;
+}
+.head::after {
+  content: "";
+  position: absolute;
+  inset: 68% 28% 14% 28%;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.04);
+}
+.ear {
+  position: absolute;
+  top: 44%;
+  width: 17%;
+  height: 22%;
+  background: var(--skin-base);
+  border-radius: 46% 54% 60% 40% / 44% 56% 48% 52%;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.1);
+  z-index: 0;
+}
+.ear.left {
+  left: 7.5%;
+  box-shadow: inset 4px 0 0 rgba(0, 0, 0, 0.08);
+}
+.ear.right {
+  right: 7.5%;
+  border-radius: 54% 46% 40% 60% / 56% 44% 52% 48%;
+  box-shadow: inset -4px 0 0 rgba(0, 0, 0, 0.08);
+}
+.ear::after {
+  content: "";
+  position: absolute;
+  top: 28%;
+  left: 34%;
+  width: 32%;
+  height: 44%;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 0, 0, 0.08);
+  opacity: 0.5;
+}
+.hair {
+  position: absolute;
+  top: 4%;
+  left: 23%;
+  right: 23%;
+  height: 34%;
+  background: var(--hair);
+  border-radius: 68% 68% 34% 34% / 90% 90% 44% 44%;
+  z-index: 4;
+}
+.hair::before,
+.hair::after {
+  content: "";
+  position: absolute;
+  top: 36%;
+  width: 36%;
+  height: 80%;
+  background: var(--hair);
+}
+.hair::before {
+  left: -22%;
+  border-radius: 70% 0 70% 40%;
+}
+.hair::after {
+  right: -22%;
+  border-radius: 0 70% 40% 70%;
+}
+.brow {
+  position: absolute;
+  top: 34%;
+  width: 26%;
+  height: 4.2%;
+  background: var(--hair);
+  border-radius: 60% / 100%;
+  z-index: 3;
+}
+.brow.left {
+  left: 20.5%;
+  transform: rotate(-5deg);
+  transform-origin: left center;
+}
+.brow.right {
+  right: 20.5%;
+  transform: rotate(5deg);
+  transform-origin: right center;
+}
+.eye {
+  position: absolute;
+  top: 41.5%;
+  width: 20%;
+  height: 11%;
+  background: var(--sclera);
+  border-radius: 58% / 65%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+}
+.eye.left {
+  left: 22.5%;
+}
+.eye.right {
+  right: 22.5%;
+}
+.eye::after {
+  content: "";
+  position: absolute;
+  bottom: -12%;
+  left: 50%;
+  width: 80%;
+  height: 38%;
+  transform: translateX(-50%);
+  border-top: 3px solid rgba(0, 0, 0, 0.08);
+  border-radius: 50%;
+}
+.iris {
+  position: relative;
+  width: 54%;
+  height: 54%;
+  background: var(--iris);
+  border-radius: 50%;
+}
+.iris::after {
+  content: "";
+  position: absolute;
+  top: 18%;
+  left: 24%;
+  width: 26%;
+  height: 26%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.65);
+}
+.nose {
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  width: 10%;
+  height: 20%;
+  transform: translateX(-50%);
+  z-index: 3;
+}
+.nose::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 46%;
+  height: 62%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 50% / 60%;
+}
+.nose::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 118%;
+  height: 38%;
+  transform: translate(-50%, 28%);
+  background: var(--skin-shadow);
+  border-radius: 58% 58% 70% 70%;
+}
+.mouth {
+  position: absolute;
+  top: 72%;
+  left: 50%;
+  width: 30%;
+  height: 7%;
+  transform: translateX(-50%);
+  background: var(--lip);
+  border-radius: 0 0 60% 60% / 0 0 80% 80%;
+  z-index: 3;
+}
+.mouth::before {
+  content: "";
+  position: absolute;
+  top: -38%;
+  left: 50%;
+  width: 82%;
+  height: 52%;
+  transform: translate(-50%, 0);
+  border-bottom: 3px solid rgba(0, 0, 0, 0.08);
+  border-radius: 50%;
+}
+</style>
+</head>
+<body>
+  <main class="canvas">
+    <div class="portrait">
+      <div class="hair"></div>
+      <div class="ear left"></div>
+      <div class="ear right"></div>
+      <div class="neck"></div>
+      <div class="head">
+        <div class="brow left"></div>
+        <div class="brow right"></div>
+        <div class="eye left"><div class="iris"></div></div>
+        <div class="eye right"><div class="iris"></div></div>
+        <div class="nose"></div>
+        <div class="mouth"></div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
